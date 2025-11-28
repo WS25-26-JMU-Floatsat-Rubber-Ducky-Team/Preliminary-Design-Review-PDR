@@ -1,0 +1,10 @@
+# LaTex output files
+*.aux
+*.dvi
+*.log
+*.out
+*.pdf
+texput.log
+
+*.bcf
+*.run.xml
