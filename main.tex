@@ -16,7 +16,7 @@
 \typearea{11}
 
 % --- Graphics ---
-\usepackage{pdflscape} 
+\usepackage{pdflscape}
 \usepackage{pgfgantt}
 \usepackage{pdflscape}
 \usetikzlibrary{shapes,backgrounds, arrows, positioning, trees, shadows}
@@ -34,7 +34,7 @@
 
 % --- Links and Cross-Referencing ---
 \usepackage{xurl}
-\usepackage[colorlinks=true, allcolors=]{hyperref} 
+\usepackage[colorlinks=true, allcolors=]{hyperref}
 \usepackage[capitalize, nameinlink, noabbrev]{cleveref}
 
 % --- Document Metadata ---
@@ -73,9 +73,9 @@ A good approach to drafting an abstract is to start by summarizing each section 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
-%------------------------------------------------------------------------------	
+%------------------------------------------------------------------------------
 \section{Introduction}
-%------------------------------------------------------------------------------	
+%------------------------------------------------------------------------------
 The FloatSat project, conducted under the Chair of Space Informatics and Satellite Systems (SISAT) at Julius-Maximilians-Universität Würzburg, constitutes a comprehensive practical exercise in the design, development, and operation of spacecraft subsystems. The primary technical objective is the creation of a fully functional satellite prototype capable of three-degree-of-freedom attitude determination and control in a terrestrial environment. To emulate the dynamics of orbital flight, the system operates on a Spherical Air Bearing Unit (SABU), which provides a near-frictionless platform replicating the torque-free conditions of space.
 
 The project is inherently multidisciplinary, integrating mechanical engineering, embedded electronics, and control theory to develop a system capable of accurate reference trajectory tracking and stable attitude control. To ensure structured development and traceability, the project follows a Systems Engineering framework, organized into seven strategic Work Packages (WPs). These WPs encompass the full development lifecycle, from requirements analysis and state-of-the-art review to mechanical and electrical subsystem design, control strategy evaluation, and software system integration.
@@ -85,17 +85,17 @@ The Preliminary Design Review (PDR) Report marks a pivotal milestone, offering a
 The following sections present a comprehensive overview of the FloatSat design at the PDR stage, detailing the project scope, design methodology, subsystem specifications, and the rationale behind the proposed system architecture.\\
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.7\linewidth]{Patch.png}
+    \includegraphics[width=0.7\linewidth]{img/Patch.png}
     \caption{The mission patch of Team 4 FloatSat Project}
     \label{fig:placeholder}
 \end{figure}
-%------------------------------------------------------------------------------	
+%------------------------------------------------------------------------------
 \section{Preliminary Design Overview}
-%------------------------------------------------------------------------------	
+%------------------------------------------------------------------------------
 
 %-----------------------------------------
 %--\subsection{Requirements}
-%----------------------------------------- 
+%-----------------------------------------
 %--
 %-----------------------------------------
 \subsection{Mechanical Design}
@@ -147,8 +147,8 @@ From a operational reliability perspective, this configuration provides enhanced
 The assembly contains three flywheels, one for each rotational degree of freedom. Each flywheel is mounted orthogonally to the others, but the entire system is additionally rotated in two axes by 45° to optimize the center of gravity alignment along the global Z-axis. This geometric offset ensures that the effective axis of rotation of each flywheel passes directly through the system’s center of rotation, minimizing induced torques and improving control authority.
 
 \begin{figure}[h]
-    \centering 
-    \includegraphics[width=0.7\linewidth]{axis_of_rotation_center.jpeg}
+    \centering
+    \includegraphics[width=0.7\linewidth]{img/axis_of_rotation_center.jpeg}
     \caption{Axis of wheel rotation going trough center of rotation}
     \label{fig:axis_of_roation}
 \end{figure}
@@ -156,24 +156,24 @@ To support the electronics, a compact multi-board stack is mounted above the fly
 
 Additionally the battery was chosen to be able to sit at different points to tune the center of gravity along the y axis, because the upper housing is non symmetric with respect to the y axis.
 
-The base plate serves as the structural foundation of the assembly. It is designed to be modular and expandable, providing additional mounting points . Cable routing channels and tie-down features are integrated directly into the geometry to prevent wire interference with the rotating components. 
+The base plate serves as the structural foundation of the assembly. It is designed to be modular and expandable, providing additional mounting points . Cable routing channels and tie-down features are integrated directly into the geometry to prevent wire interference with the rotating components.
 
 All structural components are optimized for common FDM 3D-printing processes, avoiding unprintable overhangs and trapped geometries. The form factor remains within the constraints of a standard desktop printer build volume. All fasteners follow M2 or M3 standards, and the battery remains easily accessible and removable without disturbing other components.
 
 \begin{figure}[h]
-    \centering 
-    \includegraphics[width=0.7\linewidth]{top_profile.jpeg}
-    \includegraphics[width=0.7\linewidth]{side_profile.jpeg}
+    \centering
+    \includegraphics[width=0.7\linewidth]{img/top_profile.jpeg}
+    \includegraphics[width=0.7\linewidth]{img/side_profile.jpeg}
     \caption{Side and top profile of assembly}
     \label{fig:axis_of_roation}
 \end{figure}
- 
+
 %-----------------------------------------
 \subsection{Electrical Design}
 %-----------------------------------------
 \begin{figure}[h]
     \centering
-    \includegraphics[width=1\linewidth]{FloatSatSchematic}
+    \includegraphics[width=1\linewidth]{img/FloatSatSchematic.pdf}
     \caption{FloatSat Schematic}
     \label{fig:FloatSatSchematic}
 \end{figure}
@@ -224,8 +224,8 @@ $$
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.7\linewidth]{condition_number_vs_tilt.png}
-    \includegraphics[width=0.7\linewidth]{singular_values_vs_tilt.png}
+    \includegraphics[width=0.7\linewidth]{img/condition_number_vs_tilt.png}
+    \includegraphics[width=0.7\linewidth]{img/singular_values_vs_tilt.png}
     \caption{Torque Authority vs. Tilt Angle}
     \label{fig:torque_authority_vs_tilt}
 \end{figure}
@@ -241,17 +241,17 @@ The problem that comes with simulation for now is that we won't be able to know 
 %-----------------------------------------
 ...
 
-%------------------------------------------------------------------------------	
+%------------------------------------------------------------------------------
 
 
-%------------------------------------------------------------------------------	
+%------------------------------------------------------------------------------
 \section{Conclusion}
-%------------------------------------------------------------------------------	
+%------------------------------------------------------------------------------
 In engineering and some other disciplines, the Conclusion is often integrated with the Discussion section.
 Crafting the Conclusion:
 \begin{itemize}
-    \item Summarize Key Findings: Concisely restate the main findings of your research. 
-    \item Take-Home Message: Clearly articulate the core message or insight that you want readers to take away from your work. This should be a distillation of your 
+    \item Summarize Key Findings: Concisely restate the main findings of your research.
+    \item Take-Home Message: Clearly articulate the core message or insight that you want readers to take away from your work. This should be a distillation of your
 \end{itemize}
 %\printbibliography
 %\printglossaries
@@ -264,4 +264,3 @@ Crafting the Conclusion:
 
 
 \end{document}
-
