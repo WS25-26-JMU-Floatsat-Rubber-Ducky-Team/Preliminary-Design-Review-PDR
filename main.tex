@@ -1,0 +1,267 @@
+\documentclass[
+    twocolumn,
+    fontsize = 10pt,
+    parskip = half+,
+    headings = small,
+    headwidth = text,
+    footwidth = text,
+]{scrartcl}
+
+% --- KOMA-Script Settings ---
+\KOMAoptions{
+    paper = A4,
+    pagesize,
+    DIV = calc,
+}
+\typearea{11}
+
+% --- Graphics ---
+\usepackage{pdflscape} 
+\usepackage{pgfgantt}
+\usepackage{pdflscape}
+\usetikzlibrary{shapes,backgrounds, arrows, positioning, trees, shadows}
+\usepackage{graphicx}  % make sure this is in your preamble
+\usepackage{caption}   % for \captionof
+\usepackage{comment}
+
+% --- Math and Units ---
+\usepackage{amsmath}
+\usepackage[detect-all]{siunitx}
+
+% --- Citations and Bibliography ---
+\usepackage[style=ieee, backend=biber]{biblatex}
+\addbibresource{bib/bibliography.bib}
+
+% --- Links and Cross-Referencing ---
+\usepackage{xurl}
+\usepackage[colorlinks=true, allcolors=]{hyperref} 
+\usepackage[capitalize, nameinlink, noabbrev]{cleveref}
+
+% --- Document Metadata ---
+\title{Name of the project}
+\subtitle{Floatsat 2025/2026}
+\author{Mert Yigit Ozkan (TL/Mechanical Design),\\
+        Jonas Schmidt (Mechanical Design),\\
+        Shridevi S. Keraklamatti (Mechanical Design),\\
+        Abdirakhman Onabek (Control Design),\\
+        Jan Luis Holtman (Electrical Design),\\
+        Tymoteusz Burak (Software Design)}
+
+\begin{document}
+\twocolumn[
+\begin{@twocolumnfalse}
+
+\maketitle
+
+\begin{abstract}
+Following the title, the abstract is the \textbf{second} most frequently read part of a scientific report.
+It informs about the general content and determines the report's relevance for the reader.
+It is good practice to write the abstract when writing the report is \textbf{finished} in a way that it condenses and summarizes the content of the report.
+Only start writing the abstract when all required research and work have been finished.
+Make the abstract one paragraph without reference and use about \numrange{100}{300} words.
+Be sure to only draw conclusions and make only statements that are included in the report.
+Keep the text of the abstract in present tense.
+A good approach to drafting an abstract is to start by summarizing each section of the report in \numrange{1}{2} sentences.
+\end{abstract}
+\end{@twocolumnfalse}
+]
+
+%\tableofcontents
+\newpage
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+%------------------------------------------------------------------------------	
+\section{Introduction}
+%------------------------------------------------------------------------------	
+The FloatSat project, conducted under the Chair of Space Informatics and Satellite Systems (SISAT) at Julius-Maximilians-Universität Würzburg, constitutes a comprehensive practical exercise in the design, development, and operation of spacecraft subsystems. The primary technical objective is the creation of a fully functional satellite prototype capable of three-degree-of-freedom attitude determination and control in a terrestrial environment. To emulate the dynamics of orbital flight, the system operates on a Spherical Air Bearing Unit (SABU), which provides a near-frictionless platform replicating the torque-free conditions of space.
+
+The project is inherently multidisciplinary, integrating mechanical engineering, embedded electronics, and control theory to develop a system capable of accurate reference trajectory tracking and stable attitude control. To ensure structured development and traceability, the project follows a Systems Engineering framework, organized into seven strategic Work Packages (WPs). These WPs encompass the full development lifecycle, from requirements analysis and state-of-the-art review to mechanical and electrical subsystem design, control strategy evaluation, and software system integration.
+
+The Preliminary Design Review (PDR) Report marks a pivotal milestone, offering an opportunity to evaluate the technical feasibility, system architecture, and readiness of the FloatSat prototype. This review establishes a validated foundation for subsequent optimization, integration, and performance testing, in which the system will be assessed against key metrics such as settling time, overshoot, and control effort.
+
+The following sections present a comprehensive overview of the FloatSat design at the PDR stage, detailing the project scope, design methodology, subsystem specifications, and the rationale behind the proposed system architecture.\\
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\linewidth]{Patch.png}
+    \caption{The mission patch of Team 4 FloatSat Project}
+    \label{fig:placeholder}
+\end{figure}
+%------------------------------------------------------------------------------	
+\section{Preliminary Design Overview}
+%------------------------------------------------------------------------------	
+
+%-----------------------------------------
+%--\subsection{Requirements}
+%----------------------------------------- 
+%--
+%-----------------------------------------
+\subsection{Mechanical Design}
+%-----------------------------------------
+
+\subsubsection{Requirements}
+\paragraph{Functional Requirements}
+
+\begin{itemize}
+    \item The assembly shall allow the flywheel to rotate about an axis that goes through the point of rotation.
+    \item The assembly shall provide mounting locations for all required electronic boards.
+    \item The base plate shall be expandable so that additional components can be added later (e.g., extra mounting holes or a grid pattern).
+    \item The accelerometer shall be placed as close as practical to the rotational center in the plane of rotation.
+    \item The design shall include features to fine-tune the center of mass in the \(x\!x\) plane (e.g., adjustable).
+    \item The design shall provide paths, holes, or slots for cable routing and attachment of cable ties.
+    \item All screws and fasteners shall be accessible with standard tools without removing unrelated parts.
+\end{itemize}
+
+\paragraph{Performance Requirements}
+
+\begin{itemize}
+    \item The axis of flywheel rotation shall be aligned with the geometric rotational center of the assembly.
+    \item The center of mass of the complete assembly shall lie as close as reasonable along the \(z\) rotation axis; it may be lower in the \(x\) axis.
+    \item The overall height of the assembly shall be kept as low as practical.
+    \item The design shall minimize the number of separate parts while still meeting all other requirements.
+    \item The design shall minimize the total 3D-printed material volume while maintaining sufficient stiffness and strength.
+\end{itemize}
+
+\paragraph{Constraints}
+
+\begin{itemize}
+    \item Every structural part of the assembly shall be manufacturable with common 3D-printing processes (no unprintable overhangs or trapped volumes).
+    \item The assembled parts shall fit within the build volume of a typical desktop 3D printer.
+    \item The geometry shall include dedicated holes or features for cable management and zip-ties.
+    \item The geometry shall not obstruct tool access to screws and connectors.
+    \item All screws and inserts shall fit the M2 or M3 standard.
+    \item The battery shall be easily accessible and removable.
+\end{itemize}
+
+
+
+\begin{comment}
+The selected RWA configuration employs a triad of mutually orthogonal reaction wheels mounted within a single assembly that is intentionally tilted with respect to the spacecraft's body-fixed reference frame. This architectural decision represents a systems-level optimization to satisfy two critical mission constraints: precise center-of-gravity (CoG) management and robust fault tolerance. The primary rationale for this orientation is to co-locate the collective CoG of the RWA—comprising the system's most massive components—with both the central axis and uppermost plane of the hemispherical bus. This precise CoG placement is fundamental to the vehicle's dynamic stability; a CoG deviation from this optimized position would result in mechanical interference between the rotating structure and the containment cover during attitude maneuvers, generating destabilizing frictional torques that would exceed the system's control authority. The tilted orthogonal configuration achieves this essential mass property without requiring structurally inefficient, asymmetric support members that would introduce unwanted flexure and parasitic mass.
+
+From a operational reliability perspective, this configuration provides enhanced functional redundancy compared to a conventional body-aligned orthogonal arrangement. The strategic tilt ensures that no single wheel's spin axis is parallel to any principal spacecraft axis, thereby eliminating single-point failures. In the event of any one wheel failure, the remaining two actuators maintain torque projection capability about all three body axes, enabling graceful degradation to a reduced-performance mode rather than complete loss of attitude control about a critical axis. This fault-tolerant characteristic is paramount for mission success given the absence of a fourth redundant wheel. Additionally, this consolidated assembly minimizes products of inertia, reducing dynamic cross-coupling between axes and simplifying control law formulation. The configuration thus represents an optimal synthesis of mass property control, structural efficiency, and operational reliability for the Floatsat mission profile.
+
+\end{comment}
+
+The assembly contains three flywheels, one for each rotational degree of freedom. Each flywheel is mounted orthogonally to the others, but the entire system is additionally rotated in two axes by 45° to optimize the center of gravity alignment along the global Z-axis. This geometric offset ensures that the effective axis of rotation of each flywheel passes directly through the system’s center of rotation, minimizing induced torques and improving control authority.
+
+\begin{figure}[h]
+    \centering 
+    \includegraphics[width=0.7\linewidth]{axis_of_rotation_center.jpeg}
+    \caption{Axis of wheel rotation going trough center of rotation}
+    \label{fig:axis_of_roation}
+\end{figure}
+To support the electronics, a compact multi-board stack is mounted above the flywheel plane. All PCBs are arranged such that connectors, test points, and fastening screws remain fully accessible. The accelerometer is positioned as close as physically possible to the geometric center of rotation, reducing measurement errors caused by centrifugal or tangential acceleration components.
+
+Additionally the battery was chosen to be able to sit at different points to tune the center of gravity along the y axis, because the upper housing is non symmetric with respect to the y axis.
+
+The base plate serves as the structural foundation of the assembly. It is designed to be modular and expandable, providing additional mounting points . Cable routing channels and tie-down features are integrated directly into the geometry to prevent wire interference with the rotating components. 
+
+All structural components are optimized for common FDM 3D-printing processes, avoiding unprintable overhangs and trapped geometries. The form factor remains within the constraints of a standard desktop printer build volume. All fasteners follow M2 or M3 standards, and the battery remains easily accessible and removable without disturbing other components.
+
+\begin{figure}[h]
+    \centering 
+    \includegraphics[width=0.7\linewidth]{top_profile.jpeg}
+    \includegraphics[width=0.7\linewidth]{side_profile.jpeg}
+    \caption{Side and top profile of assembly}
+    \label{fig:axis_of_roation}
+\end{figure}
+ 
+%-----------------------------------------
+\subsection{Electrical Design}
+%-----------------------------------------
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\linewidth]{FloatSatSchematic}
+    \caption{FloatSat Schematic}
+    \label{fig:FloatSatSchematic}
+\end{figure}
+
+\subsubsection{Electrical Requirements}
+
+\paragraph{Functional}
+\begin{enumerate}
+    \item The Battery shall to connect to the Power Distribution board.
+    \item The Power Distribution Board shall power the Main Control Unit.
+    \item The Power Distribution Board shall power the IMU.
+    \item The Power Distribution Board shall power the Communication Controller.
+    \item The Power Distribution Board shall power the Motor Driver Board.
+    \item The IMU shall communicate with the Main Control Unit.
+    \item The Driver Board outputs shall control the Motor phases.
+\end{enumerate}
+
+\paragraph{Interface Requirements}
+\begin{enumerate}
+    \item Duplex Communication between the Communication Controller and the Main Control Unit shall be provided.
+    \item The Main Control Unit shall control 3 Outputs per Motor on the Driver Board.
+	\item The Main Control Unit shall be able to provide 3 different PWM signals to the driver.
+    \item The Main Control Unit shall be able to commute each motor phase independently.
+\end{enumerate}
+
+\paragraph{Performance Requirements}
+\begin{enumerate}
+    \item Communication between the Communication Controller and the Main Control Unit shall provide enough Bandwidth for control commands and telemetry.
+\end{enumerate}
+
+\paragraph{Environmental Requirements}
+\begin{enumerate}
+    \item The Connections shall withstand the Vibrations of the Flotation Environment
+\end{enumerate}
+
+%-----------------------------------------
+\subsection{Control System Design}
+%-----------------------------------------
+The FloatSat attitude control system uses three reaction wheels arranged in a tilted orthogonal configuration (see Mechanical Design section). We implement a classical PID-based attitude controller for preliminary testing.
+
+\subsubsection{Torque Authority and Wheel Geometry}
+
+To evaluate the control authority of the chosen geometry, we analyzed the singular values of the wheel-axis matrix $N$ for different tilt angles between each wheel axis and the body $Z$-axis. The singular values  $\sigma_i$ quantify the achievable torque in each principal direction, while the condition number indicates how evenly torque can be applied across all axes (low $\kappa$ preferred).
+
+$$
+\kappa = \frac{\sigma_{max}}{\sigma_{min}}
+$$
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\linewidth]{condition_number_vs_tilt.png}
+    \includegraphics[width=0.7\linewidth]{singular_values_vs_tilt.png}
+    \caption{Torque Authority vs. Tilt Angle}
+    \label{fig:torque_authority_vs_tilt}
+\end{figure}
+
+The mechanical design places the wheels so that two 45° rotations yield an effective tilt of 54.736° from the $Z$-axis. This corresponds well with the region where the condition number is near its minimum, meaning torque is well-distributed and the actuator geometry is close to orthogonal. Increasing the tilt would improve yaw authority but degrade roll/pitch authority, which might be beneficiary due to FloatSat dish geometry but we've chosen to keep the 54.736° angle towards the $Z$-axis.
+
+This also gave insight on how small offsets between the actual CoG and the nominal wheel placement affects torque authority. As shown in \ref{fig:torque_authority_vs_tilt}, even millimeter-scale shifts slightly distort the wheel-axis matrix but do not significantly degrade the condition number. Larger offsets might produce noticeable asymmetry, motivating a later potential upgrade to sliding-mode control if needed.
+
+The problem that comes with simulation for now is that we won't be able to know the exact inertia of our satellite body and flywheels. Thus we might implement a sliding control later that will counteract the unknown inertia of the sattelite or manually tune the PID so it's "good enough.
+
+%-----------------------------------------
+\subsection{Software System Design}
+%-----------------------------------------
+...
+
+%------------------------------------------------------------------------------	
+
+
+%------------------------------------------------------------------------------	
+\section{Conclusion}
+%------------------------------------------------------------------------------	
+In engineering and some other disciplines, the Conclusion is often integrated with the Discussion section.
+Crafting the Conclusion:
+\begin{itemize}
+    \item Summarize Key Findings: Concisely restate the main findings of your research. 
+    \item Take-Home Message: Clearly articulate the core message or insight that you want readers to take away from your work. This should be a distillation of your 
+\end{itemize}
+%\printbibliography
+%\printglossaries
+% Appendix
+%\appendix
+% \pagenumbering{roman}
+%\include{appendix/appendix}
+\onecolumn
+\input{project_management}
+
+
+\end{document}
+
