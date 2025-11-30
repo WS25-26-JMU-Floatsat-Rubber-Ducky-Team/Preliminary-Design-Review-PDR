@@ -232,7 +232,53 @@ The mechanical design places the wheels so that two 45° rotations yield an effe
 
 This also gave insight on how small offsets between the actual CoG and the nominal wheel placement affects torque authority. As shown in \ref{fig:torque_authority_vs_tilt}, even millimeter-scale shifts slightly distort the wheel-axis matrix but do not significantly degrade the condition number. Larger offsets might produce noticeable asymmetry, motivating a later potential upgrade to sliding-mode control if needed.
 
-The problem that comes with simulation for now is that we won't be able to know the exact inertia of our satellite body and flywheels. Thus we might implement a sliding control later that will counteract the unknown inertia of the sattelite or manually tune the PID so it's "good enough.
+For attitude estimation in the current development phase we're planning to use a lightweight \textbf{quaternion-based complementary filter} to fuse gyroscope, accelerometer and magnetometer measurements from the IMU.
+
+The filter implementation used in simulation consists of three steps per timestep \(\Delta t\):
+
+\begin{enumerate}
+  \item \textbf{Gyro propagation (predict):} propagate the previous quaternion \(q_{k-1}\) using measured body rates \(\boldsymbol{\omega}=[\omega_x,\omega_y,\omega_z]^\mathsf{T}\). Using the standard quaternion kinematics:
+  \[
+  \dot q = \tfrac{1}{2}\,\Omega(\boldsymbol{\omega})\,q, \qquad
+  \Omega(\boldsymbol{\omega}) =
+  \begin{bmatrix}
+    0 & -\omega_x & -\omega_y & -\omega_z\\[4pt]
+    \omega_x & 0 & \omega_z & -\omega_y\\[4pt]
+    \omega_y & -\omega_z & 0 & \omega_x\\[4pt]
+    \omega_z & \omega_y & -\omega_x & 0
+  \end{bmatrix},
+  \]
+  and the discrete prediction
+  \[
+  q_{\text{gyro}} = \frac{q_{k-1} + \tfrac{1}{2}\,\Omega(\boldsymbol{\omega})\,q_{k-1}\,\Delta t}{\big\|q_{k-1} + \tfrac{1}{2}\,\Omega(\boldsymbol{\omega})\,q_{k-1}\,\Delta t\big\|}.
+  \]
+
+  \item \textbf{Accelerometer / magnetometer correction (measurement):} compute a corrective quaternion \(q_{\text{meas}}\) from the accelerometer (roll/pitch) and magnetometer (heading). Practically this is formed by estimating roll and pitch from the accel vector and heading from the mag vector (after tilt compensation), then converting the resulting Euler angles to a quaternion:
+  \[
+  q_{\text{meas}} = \mathrm{eul2quat}\big(\,\widehat{\phi}_{\text{acc}},\,\widehat{\theta}_{\text{acc}},\,\widehat{\psi}_{\text{mag}}\,\big).
+  \]
+
+In the current simulation the magnetometer is not used.
+
+  \item \textbf{Fusion (correct):} blend the fast gyro estimate with the lower-bandwidth accel/mag estimate using spherical linear interpolation (SLERP):
+  \[
+  q_{k} = \operatorname{slerp}\big(q_{\text{gyro}},\,q_{\text{meas}},\,t\big),\qquad t = 1-\alpha,
+  \]
+  where the discrete blending coefficient \(\alpha\in[0,1]\) is derived from a first-order time constant \(\tau\) via
+  \[
+  \alpha = \frac{\tau}{\tau + \Delta t}.
+  \]
+  Finally renormalize \(q_k\) to unit length.
+\end{enumerate}
+
+For the PDR simulations we use a placeholder \(\tau=0.5\ \mathrm{s}\). This \(\tau\) is an arbitrary initial choice for simulation only and will be tuned after sensor characterisation.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\linewidth]{img/example_octave_simulation_results.png}
+    \caption{Example simulation results for setpoint (-10°, 10°, 40°)}
+    \label{fig:octave_result}
+\end{figure}
 
 %-----------------------------------------
 \subsection{Software System Design}
