@@ -237,7 +237,11 @@ The problem that comes with simulation for now is that we won't be able to know 
 %-----------------------------------------
 \subsection{Software System Design}
 %-----------------------------------------
-...
+The software system for the FloatSat is designed as a modular framework that enables attitude determination, reaction-wheel attitude control, and telemetry exchange while floating on a spherical air-bearing unit (SABU). Operating on the SABU requires compensating for near-frictionless motion, which demands sensor filtering, precise motor coordination, and predictable timing of the control loop on the STM32. A fast 1–10 ms loop runs on the microcontroller, using interrupts for non-blocking SPI communication and avoiding delays. The STM32F401 serves as the main control computer, handling IMU data, state estimation, and closed-loop wheel control. It is supported by an ESP32-C6, which provides a Wi-Fi link to the ground station and relays telemetry and commands over SPI.
+
+At the lowest layer, the software provides drivers for the IMU, PWM generation, motor commutation, SPI communication, and voltage monitoring. These support mid-level services such as complementary-filter sensor fusion and reaction-wheel RPM control. The PID-based attitude controller generates torque commands, which are mapped to the tilted wheel geometry through a calibrated actuator-mapping matrix.
+
+Higher layers include fault-detection routines to prevent motor damage or controller saturation and to recover safely from IMU or communication errors. A supervisory state controller manages modes such as startup, idle, calibration, active control, and emergency stop. The top layer handles ground-station communication and telemetry, and future iterations will try to further refine motor-control performance by measuring back-emf.
 
 %------------------------------------------------------------------------------
 
