@@ -87,14 +87,7 @@ The following sections present a comprehensive overview of the FloatSat design a
 %------------------------------------------------------------------------------
 
 %-----------------------------------------
-%--\subsection{Requirements}
-%-----------------------------------------
-%--
-%-----------------------------------------
-\subsection{Mechanical Design}
-%-----------------------------------------
-
-\subsubsection{Requirements}
+\subsection{Requirements}
 \paragraph{Functional Requirements}
 
 \begin{itemize}
@@ -106,9 +99,17 @@ The following sections present a comprehensive overview of the FloatSat design a
     \item The design shall provide paths, holes, or slots for cable routing and attachment of cable ties.
     \item All screws and fasteners shall be accessible with standard tools without removing unrelated parts.
 \end{itemize}
+\begin{enumerate}
+    \item The Battery shall to connect to the Power Distribution board.
+    \item The Power Distribution Board shall power the Main Control Unit ($5V$).
+    \item The Power Distribution Board shall power the IMU ($3.3V$).
+    \item The Power Distribution Board shall power the Communication Controller ($5V$).
+    \item The Power Distribution Board shall power the Motor Driver Board (Battery Voltage).
+    \item The IMU shall communicate with the Main Control Unit.
+    \item The Driver Board outputs shall control the Motor phases.
+\end{enumerate}
 
 \paragraph{Performance Requirements}
-
 \begin{itemize}
     \item The axis of flywheel rotation shall be aligned with the geometric rotational center of the assembly.
     \item The center of mass of the complete assembly shall lie as close as reasonable along the \(z\) rotation axis; it may be lower in the \(x\) axis.
@@ -116,6 +117,9 @@ The following sections present a comprehensive overview of the FloatSat design a
     \item The design shall minimize the number of separate parts while still meeting all other requirements.
     \item The design shall minimize the total 3D-printed material volume while maintaining sufficient stiffness and strength.
 \end{itemize}
+\begin{enumerate}
+    \item Communication between the Communication Controller and the Main Control Unit shall provide enough Bandwidth for control commands and telemetry.
+\end{enumerate}
 
 \paragraph{Constraints}
 
@@ -128,7 +132,25 @@ The following sections present a comprehensive overview of the FloatSat design a
     \item The battery shall be easily accessible and removable.
 \end{itemize}
 
+\paragraph{Interface Requirements}
+\begin{enumerate}
+    \item Duplex Communication between the Communication Controller and the Main Control Unit shall be provided.
+    \item The Main Control Unit shall control 3 Outputs per Motor on the Driver Board.
+	\item The Main Control Unit shall be able to provide 3 different PWM signals to the drivers.
+    \item The Main Control Unit shall be able to commute each motor phase independently.
+\end{enumerate}
 
+\paragraph{Environmental Requirements}
+\begin{enumerate}
+    \item The Connections shall withstand the Vibrations of the Flotation Environment.
+\end{enumerate}
+
+
+%-----------------------------------------
+%--
+%-----------------------------------------
+\subsection{Mechanical Design}
+%-----------------------------------------
 
 \begin{comment}
 The selected RWA configuration employs a triad of mutually orthogonal reaction wheels mounted within a single assembly that is intentionally tilted with respect to the spacecraft's body-fixed reference frame. This architectural decision represents a systems-level optimization to satisfy two critical mission constraints: precise center-of-gravity (CoG) management and robust fault tolerance. The primary rationale for this orientation is to co-locate the collective CoG of the RWA—comprising the system's most massive components—with both the central axis and uppermost plane of the hemispherical bus. This precise CoG placement is fundamental to the vehicle's dynamic stability; a CoG deviation from this optimized position would result in mechanical interference between the rotating structure and the containment cover during attitude maneuvers, generating destabilizing frictional torques that would exceed the system's control authority. The tilted orthogonal configuration achieves this essential mass property without requiring structurally inefficient, asymmetric support members that would introduce unwanted flexure and parasitic mass.
@@ -188,37 +210,6 @@ Figure~\ref{fig:FloatSatSchematic} shows the detailed electrical Schematic.
     \caption{FloatSat Schematic}
     \label{fig:FloatSatSchematic}
 \end{figure}
-
-\subsubsection{Electrical Requirements}
-
-\paragraph{Functional}
-\begin{enumerate}
-    \item The Battery shall to connect to the Power Distribution board.
-    \item The Power Distribution Board shall power the Main Control Unit ($5V$).
-    \item The Power Distribution Board shall power the IMU ($3.3V$).
-    \item The Power Distribution Board shall power the Communication Controller ($5V$).
-    \item The Power Distribution Board shall power the Motor Driver Board (Battery Voltage).
-    \item The IMU shall communicate with the Main Control Unit.
-    \item The Driver Board outputs shall control the Motor phases.
-\end{enumerate}
-
-\paragraph{Interface Requirements}
-\begin{enumerate}
-    \item Duplex Communication between the Communication Controller and the Main Control Unit shall be provided.
-    \item The Main Control Unit shall control 3 Outputs per Motor on the Driver Board.
-	\item The Main Control Unit shall be able to provide 3 different PWM signals to the drivers.
-    \item The Main Control Unit shall be able to commute each motor phase independently.
-\end{enumerate}
-
-\paragraph{Performance Requirements}
-\begin{enumerate}
-    \item Communication between the Communication Controller and the Main Control Unit shall provide enough Bandwidth for control commands and telemetry.
-\end{enumerate}
-
-\paragraph{Environmental Requirements}
-\begin{enumerate}
-    \item The Connections shall withstand the Vibrations of the Flotation Environment.
-\end{enumerate}
 
 %-----------------------------------------
 \subsection{Control System Design}
