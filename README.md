@@ -1,5 +1,5 @@
 # Compiling
 
 ```sh
-lualatex main.pdf
+pdflatex main.tex
 ```
