@@ -986,21 +986,21 @@ Requirements from WP2100.}\\
     \textbf{Processed by} & \multicolumn{3}{l|}{Tymoteusz Burak, Jan Luis Holtman}\\
     \hline\hline
     \multicolumn{4}{|p{.95\columnwidth}|}{\textbf{Goals:}}\\
-    \multicolumn{4}{|p{.95\columnwidth}|}{$\bullet$ Gain knowledge about the literature research topic 1}\\
-    \multicolumn{4}{|p{.95\columnwidth}|}{$\bullet$ Gain a deep understanding of the current state of the art on research topic 1}\\
+    \multicolumn{4}{|p{.95\columnwidth}|}{$\bullet$ Implement STM32 drivers for all electrical interfaces (IMU, SPI, PWM, motor drivers)}\\
+    \multicolumn{4}{|p{.95\columnwidth}|}{$\bullet$ Ensure reliable communication between STM32 and ESP32 as defined in the architecture}\\
     \multicolumn{4}{|p{.95\columnwidth}|}{}\\
     \multicolumn{4}{|p{.95\columnwidth}|}{\textbf{Input:}}\\
-    \multicolumn{4}{|p{.95\columnwidth}|}{$\bullet$ Journal papers on literature topic 1}\\
-    \multicolumn{4}{|p{.95\columnwidth}|}{$\bullet$ Conference papers on literature topic 1}\\
+    \multicolumn{4}{|p{.95\columnwidth}|}{$\bullet$ Electrical schematics and pin assignments}\\
+    \multicolumn{4}{|p{.95\columnwidth}|}{$\bullet$ Datasheets for IMU, motor drivers, STM32 peripherals, and ESP32 interface}\\
     \multicolumn{4}{|p{.95\columnwidth}|}{}\\
     \multicolumn{4}{|p{.95\columnwidth}|}{\textbf{Connections to other WPs:}}\\
-    \multicolumn{4}{|p{.95\columnwidth}|}{}\\
+    \multicolumn{4}{|p{.95\columnwidth}|}{Supplies drivers used in WP 4400 (Telemetry Integration) and WP 4500 (Control Algorithms). Refines interface constraints from WP 4200 (Post-PDR Architectural Refinement). Required for integration testing in WP 6100.}\\
     \multicolumn{4}{|p{.95\columnwidth}|}{\textbf{Tasks:}}\\
-    \multicolumn{4}{|p{.95\columnwidth}|}{$\bullet$ Literature research literature topic 1}\\
+    \multicolumn{4}{|p{.95\columnwidth}|}{$\bullet$ Implement IMU I2C/SPI driver and data acquisition functions. Implement PWM and commutation control for reaction wheels. Implement SPI protocol between STM32 and ESP32. Verify correct pin mapping and signal behavior on hardware.}\\
     \multicolumn{4}{|p{.95\columnwidth}|}{}\\
     \multicolumn{4}{|p{.95\columnwidth}|}{\textbf{Results:}}\\
-    \multicolumn{4}{|p{.95\columnwidth}|}{$\bullet$ Basic knowledge about literature topic 1}\\
-    \multicolumn{4}{|p{.95\columnwidth}|}{$\bullet$ Deeper knowledge about literature topic 1}\\
+    \multicolumn{4}{|p{.95\columnwidth}|}{$\bullet$ Verified communication between STM32 and ESP32}\\
+    \multicolumn{4}{|p{.95\columnwidth}|}{$\bullet$ Stable motor-control and sensor-access routines ready for higher-level software}\\
     \hline
 \end{tabular}
 
