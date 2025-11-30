@@ -38,8 +38,8 @@
 \usepackage[capitalize, nameinlink, noabbrev]{cleveref}
 
 % --- Document Metadata ---
-\title{Name of the project}
-\subtitle{Floatsat 2025/2026}
+\title{Attitude Determination and Control System Design of Floatsat}
+\subtitle{Floatsat Design Laboratory 2025/2026}
 \author{Mert Yigit Ozkan (TL/Mechanical Design),\\
         Jonas Schmidt (Mechanical Design),\\
         Shridevi S. Keraklamatti (Mechanical Design),\\
@@ -98,8 +98,6 @@ The following sections present a comprehensive overview of the FloatSat design a
     \item The design shall include features to fine-tune the center of mass in the \(x\!x\) plane (e.g., adjustable).
     \item The design shall provide paths, holes, or slots for cable routing and attachment of cable ties.
     \item All screws and fasteners shall be accessible with standard tools without removing unrelated parts.
-\end{itemize}
-\begin{enumerate}
     \item The Battery shall to connect to the Power Distribution board.
     \item The Power Distribution Board shall power the Main Control Unit ($5V$).
     \item The Power Distribution Board shall power the IMU ($3.3V$).
@@ -107,7 +105,7 @@ The following sections present a comprehensive overview of the FloatSat design a
     \item The Power Distribution Board shall power the Motor Driver Board (Battery Voltage).
     \item The IMU shall communicate with the Main Control Unit.
     \item The Driver Board outputs shall control the Motor phases.
-\end{enumerate}
+\end{itemize}
 
 \paragraph{Performance Requirements}
 \begin{itemize}
@@ -116,10 +114,8 @@ The following sections present a comprehensive overview of the FloatSat design a
     \item The overall height of the assembly shall be kept as low as practical.
     \item The design shall minimize the number of separate parts while still meeting all other requirements.
     \item The design shall minimize the total 3D-printed material volume while maintaining sufficient stiffness and strength.
-\end{itemize}
-\begin{enumerate}
     \item Communication between the Communication Controller and the Main Control Unit shall provide enough Bandwidth for control commands and telemetry.
-\end{enumerate}
+\end{itemize}
 
 \paragraph{Constraints}
 
@@ -133,17 +129,17 @@ The following sections present a comprehensive overview of the FloatSat design a
 \end{itemize}
 
 \paragraph{Interface Requirements}
-\begin{enumerate}
+\begin{itemize}
     \item Duplex Communication between the Communication Controller and the Main Control Unit shall be provided.
     \item The Main Control Unit shall control 3 Outputs per Motor on the Driver Board.
 	\item The Main Control Unit shall be able to provide 3 different PWM signals to the drivers.
     \item The Main Control Unit shall be able to commute each motor phase independently.
-\end{enumerate}
+\end{itemize}
 
 \paragraph{Environmental Requirements}
-\begin{enumerate}
+\begin{itemize}
     \item The Connections shall withstand the Vibrations of the Flotation Environment.
-\end{enumerate}
+\end{itemize}
 
 
 %-----------------------------------------
@@ -249,12 +245,9 @@ The problem that comes with simulation for now is that we won't be able to know 
 %------------------------------------------------------------------------------
 \section{Conclusion}
 %------------------------------------------------------------------------------
-In engineering and some other disciplines, the Conclusion is often integrated with the Discussion section.
-Crafting the Conclusion:
-\begin{itemize}
-    \item Summarize Key Findings: Concisely restate the main findings of your research.
-    \item Take-Home Message: Clearly articulate the core message or insight that you want readers to take away from your work. This should be a distillation of your
-\end{itemize}
+The Preliminary Design Review of the FloatSat 2025/2026 project has provided a comprehensive evaluation of the system architecture and its capability to achieve three-degree-of-freedom attitude control on a Spherical Air Bearing Unit. The proposed design, characterized by a strategically tilted reaction-wheel configuration and a dual-microcontroller electronics framework, exhibits substantial potential to satisfy the project’s functional and performance requirements. The analyses conducted at this stage have elucidated the system’s strengths while also identifying areas necessitating further refinement, particularly with respect to dynamic parameter characterization, control robustness, and subsystem integration. Informed by the insights and recommendations arising from this review, the project team will undertake iterative enhancements of the mechanical, electrical, software and control subsystems to ensure the realization of a fully optimized and validated architecture in preparation for the Final Design Review.
+
+
 %\printbibliography
 %\printglossaries
 % Appendix
