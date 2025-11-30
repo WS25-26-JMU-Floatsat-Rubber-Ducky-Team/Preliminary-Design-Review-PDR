@@ -37,6 +37,10 @@
 \usepackage[colorlinks=true, allcolors=]{hyperref}
 \usepackage[capitalize, nameinlink, noabbrev]{cleveref}
 
+% --- For Control Block Diagram ---
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, positioning, shapes.geometric, calc}
+
 % --- Document Metadata ---
 \title{Attitude Determination and Control System Design of Floatsat}
 \subtitle{Floatsat Design Laboratory 2025/2026}
@@ -278,6 +282,46 @@ For the PDR simulations we use a placeholder \(\tau=0.5\ \mathrm{s}\). This \(\t
     \includegraphics[width=0.7\linewidth]{img/example_octave_simulation_results.png}
     \caption{Example simulation results for setpoint (-10°, 10°, 40°)}
     \label{fig:octave_result}
+\end{figure}
+
+\begin{figure}[h]
+\resizebox{\linewidth}{!}{
+\begin{tikzpicture}[auto, node distance=2cm, >=Stealth]
+
+    % Nodes
+    \node[] (qref) {$q_{\mathrm{ref}}$};
+    \node[draw, circle, right=1.2cm of qref, minimum size=7mm] (sum) {$\sum$};
+    \node[draw, rectangle, right=1.6cm of sum, minimum width=2.0cm] (pid) {PID};
+    \node[draw, rectangle, right=1.6cm of pid, minimum width=2.6cm] (plant) {FloatSat};
+
+    % Output nodes
+    \node[right=2cm of plant.north east, anchor=west] (y) {$q_{out}$};        % true output
+    \node[right=2cm of plant.south east, anchor=west] (yprime) {$q_{out}'$};  % measurement to filter
+
+    % Complementary filter block in feedback
+    \node[draw, rectangle, below=1.6cm of plant, minimum width=3.0cm] (comp) {Complementary filter};
+
+    % Arrows (forward path)
+    \draw[->] (qref) -- (sum) node[midway, above] {$+$};
+    \draw[->] (sum) -- (pid);
+    \draw[->] (pid) -- (plant);
+
+    % Plant outputs
+    \draw[->] (plant.north east) -- (y);
+    \draw[->] (plant.south east) -- (yprime);
+
+    % Feedback: y' -> complementary filter
+    \draw[->] (yprime.south) |- (comp.east) node[midway,right] {IMU measurements};
+
+    % Feedback: complementary filter -> sum
+\draw[->] (comp.west) -| (sum.south)
+    node[pos=0.25, above] {$q_{\mathrm{est}}$}
+    node[pos=0.75, left] {$-$};
+
+\end{tikzpicture}
+}
+\caption{Control System Block Diagram}
+\label{fig:control_block_diagram}
 \end{figure}
 
 %-----------------------------------------
